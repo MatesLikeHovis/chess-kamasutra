@@ -140,7 +140,14 @@ print("Hello Dear User!")
 print("Please enter a LiChess user name to begin downloading PGN file.")
 user = input(": ")
 
-#download_pgn_file(user)
+try:
+    filePath = user + "Games.pgn"
+    with open(filePath, 'r') as file:
+        pass
+except:
+    download_pgn_file(user)
+
+
     
 print("Download complete.")
 print("Beginning analysis and categorization.")
