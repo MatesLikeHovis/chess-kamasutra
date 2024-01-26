@@ -8,7 +8,6 @@ whiteGameList = []
 blackGameList = []
 positionList = {}
 
-
 def get_stockfish(board):
     eval = 0
     posRequest = "https://stockfish.online/api/stockfish.php?"
@@ -157,12 +156,11 @@ try:
     filePath = user + "Games.pgn"
     with open(filePath, 'r') as file:
         pass
+    print("File located")
 except:
     download_pgn_file(user)
+    print("Download complete.")
 
-
-    
-print("Download complete.")
 print("Beginning analysis and categorization.")
 
 create_game_lists(user)
