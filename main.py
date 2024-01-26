@@ -4,10 +4,12 @@ import json
 import csv
 from bs4 import BeautifulSoup
 
+# Global Game and Position List definitions:
 whiteGameList = []
 blackGameList = []
 positionList = {}
 
+#Essential functions defined:
 def get_stockfish(board):
     eval = 0
     posRequest = "https://stockfish.online/api/stockfish.php?"
@@ -47,7 +49,6 @@ def get_stockfish(board):
         eval = total_evaluation
     except: eval = 0
     return eval
-
 def create_game_lists(user):
     pgn = open(user + "Games.pgn")
     finished = False
@@ -64,7 +65,6 @@ def create_game_lists(user):
                     whiteGameList.append(thisGame)
             else:
                 finished = True
-
 def download_pgn_file(user):
     userDownload = "https://lichess.org/api/games/user/" + user
 
@@ -82,7 +82,6 @@ def download_pgn_file(user):
                 dl_amount += len(chunk)
             if dl_amount % 10000 < 100:
                 print(str(dl_amount / 1000) + " kb downloaded")
-
 def create_position_list(gameList, chessColor, color, oppcolor):
     counter = 1
     for game in gameList:
@@ -133,7 +132,6 @@ def create_position_list(gameList, chessColor, color, oppcolor):
                 prev_board_fen = board.board_fen()
         print("Game " + str(counter) + " of " + str(len(gameList)) + " Completed")
         counter += 1
-
 def generate_csv_file(user):
     print("Generating CSV File")
     csvPath = user + "Positions.csv"
@@ -148,6 +146,7 @@ def generate_csv_file(user):
                     csv_writer.writerow([position] + list(thisPositionDict.values()))
         else: print("Error - no position list")
 
+#BEGIN MAIN PROGRAM FUNCTION HERE:
 print("Hello Dear User!")
 print("Please enter a LiChess user name to begin downloading PGN file.")
 user = input(": ")
