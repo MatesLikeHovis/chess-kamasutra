@@ -135,6 +135,19 @@ def create_position_list(gameList, chessColor, color, oppcolor):
         print("Game " + str(counter) + " of " + str(len(gameList)) + " Completed")
         counter += 1
 
+def generate_csv_file(user):
+    print("Generating CSV File")
+    csvPath = user + "Positions.csv"
+    with open(csvPath, 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        if positionList:
+            first_position = next(iter(positionList))
+            header_dict = positionList[first_position][0]
+            csv_writer.writerow(['FEN Position'] + list(header_dict.keys()))
+            for position, pos_list in positionList.items():
+                for thisPositionDict in pos_list:
+                    csv_writer.writerow([position] + list(thisPositionDict.values()))
+        else: print("Error - no position list")
 
 print("Hello Dear User!")
 print("Please enter a LiChess user name to begin downloading PGN file.")
@@ -158,17 +171,6 @@ create_position_list(blackGameList, chess.BLACK, 'Black', 'White')
 
 print("Game lists populated")
 
-print("Generating CSV File")
-csvPath = user + "Positions.csv"
-with open(csvPath, 'w', newline='') as csv_file:
-    csv_writer = csv.writer(csv_file)
-    if positionList:
-        first_position = next(iter(positionList))
-        header_dict = positionList[first_position][0]
-        csv_writer.writerow(['FEN Position'] + list(header_dict.keys()))
-        for position, pos_list in positionList.items():
-            for thisPositionDict in pos_list:
-                csv_writer.writerow([position] + list(thisPositionDict.values()))
-    else: print("Error - no position list")
+generate_csv_file(user)
 
 print("Success!!!")
