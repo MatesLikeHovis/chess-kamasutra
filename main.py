@@ -156,19 +156,22 @@ try:
     filePath = user + "Games.pgn"
     with open(filePath, 'r') as file:
         pass
-    print("File located")
+    print("PGN File located")
 except:
     download_pgn_file(user)
     print("Download complete.")
 
-print("Beginning analysis and categorization.")
-
-create_game_lists(user)
-create_position_list(whiteGameList, chess.WHITE, 'White', 'Black')
-create_position_list(blackGameList, chess.BLACK, 'Black', 'White')
-
-print("Game lists populated")
-
-generate_csv_file(user)
+try:
+    filepath = user + "Positions.csv"
+    with open(filepath, 'r') as file:
+        pass
+    print("CSV File located")
+except:
+    print("Beginning analysis and categorization.")
+    create_game_lists(user)
+    create_position_list(whiteGameList, chess.WHITE, 'White', 'Black')
+    create_position_list(blackGameList, chess.BLACK, 'Black', 'White')
+    print("Game lists populated")
+    generate_csv_file(user)
 
 print("Success!!!")
